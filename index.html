@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Stripe Payment Practice</title>
+</head>
+<body>
+  <h2>Pay ₹50 using Stripe</h2>
+  <button id="payBtn">Pay Now</button>
+
+  <script src="https://js.stripe.com/v3/"></script>
+  <script>
+    document.getElementById("payBtn").onclick = function () {
+      fetch("http://localhost:4242/create-checkout-session", {
+        method: "POST"
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.url) {
+          window.location.href = data.url;
+        } else {
+          alert("Failed to create Stripe checkout session");
+        }
+      });
+    };
+  </script>
+</body>
+</html>
